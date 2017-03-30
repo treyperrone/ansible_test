@@ -1,0 +1,13 @@
+---
+- name:
+  hosts: all
+  tasks:
+  - name: Install msi/exe win_package
+    win_stat:
+      path: "{{ windows_path }}"
+      get_checksum: true
+    register: winpath_stat
+    failed_when: winpath_stat.stat.exists == false
+  - debug:
+      var: winpath_stat
+      verbosity: 3
